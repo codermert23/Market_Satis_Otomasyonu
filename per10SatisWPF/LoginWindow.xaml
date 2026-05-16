@@ -1,0 +1,63 @@
+<Window x:Class="per10SatisWPF.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Per10 Satış Sistemi - Giriş"
+        Height="480" Width="400"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="{StaticResource BgDark}"
+        Icon="favicon.ico">
+    <Window.Resources>
+        <SolidColorBrush x:Key="TextWhite" Color="#EDF0F7"/>
+        <SolidColorBrush x:Key="TextGray"  Color="#6B7A99"/>
+    </Window.Resources>
+
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
+
+            <!-- Logo -->
+            <Border CornerRadius="40"
+                    Width="72" Height="72" HorizontalAlignment="Center" Margin="0,0,0,16">
+                <Border.Background>
+                    <ImageBrush ImageSource="/429133874_1148074973270485_3369770598999947412_n.jpg" Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+
+            <!-- Başlık -->
+            <TextBlock Text="Per10 Satış Sistemi" FontSize="20" FontWeight="Bold"
+                       Foreground="{StaticResource TextWhite}" HorizontalAlignment="Center" Margin="0,0,0,6"/>
+            <TextBlock Text="Hesabınıza giriş yapın" FontSize="13"
+                       Foreground="{StaticResource TextGray}" HorizontalAlignment="Center" Margin="0,0,0,28"/>
+
+            <!-- Kullanıcı Adı -->
+            <TextBlock Text="Kullanıcı Adı" Foreground="{StaticResource TextGray}" FontSize="12" Margin="2,0,0,5"/>
+            <Border Background="{StaticResource BgCard}" CornerRadius="8"
+                    BorderBrush="{StaticResource BorderColor}" BorderThickness="1" Margin="0,0,0,14">
+                <TextBox x:Name="txtKullanici" Background="Transparent"
+                         Foreground="{StaticResource TextWhite}" BorderThickness="0"
+                         Padding="12,10" FontSize="14" CaretBrush="White"/>
+            </Border>
+
+            <!-- Şifre -->
+            <TextBlock Text="Şifre" Foreground="{StaticResource TextGray}" FontSize="12" Margin="2,0,0,5"/>
+            <Border Background="{StaticResource BgCard}" CornerRadius="8"
+                    BorderBrush="{StaticResource BorderColor}" BorderThickness="1" Margin="0,0,0,6">
+                <PasswordBox x:Name="txtSifre" Background="Transparent"
+                             Foreground="{StaticResource TextWhite}" BorderThickness="0"
+                             Padding="12,10" FontSize="14" PasswordChar="●"
+                             KeyDown="txtSifre_KeyDown"/>
+            </Border>
+
+            <!-- Hata mesajı -->
+            <TextBlock x:Name="lblHata" Foreground="{StaticResource AccentRed}"
+                       FontSize="12" Margin="2,0,0,14" Visibility="Collapsed"/>
+
+            <!-- Giriş Butonu -->
+            <Button x:Name="btnGiris" Content="Giriş Yap"
+                    Background="{DynamicResource AccentGreen}" Foreground="White"
+                    FontSize="15" FontWeight="Bold" Height="44"
+                    Template="{StaticResource RoundBtnTemplate}"
+                    Cursor="Hand" Click="btnGiris_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

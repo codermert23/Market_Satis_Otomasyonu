@@ -1,0 +1,369 @@
+<Window x:Class="per10SatisWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Per10 Satış Sistemi v1.0.4"
+        Height="800" Width="1400"
+        MinHeight="650" MinWidth="1150"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="{StaticResource BgDark}"
+        Closing="Window_Closing"
+        KeyDown="Window_KeyDown"
+        Icon="favicon.ico">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="153*"/>
+            <ColumnDefinition Width="547*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="36"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource BgPanel}"
+                BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,0,1" Grid.ColumnSpan="2">
+            <Grid Margin="20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="210"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Width="48" Height="48" CornerRadius="12" Margin="0,0,12,0">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#FF89780E" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="Per10" FontSize="14" FontWeight="Black"
+                                   Foreground="#FFFFDD00" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bodoni MT"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Per10 Oto Bakım" FontSize="17" FontWeight="Bold"
+                                   Foreground="{StaticResource TextPrimary}"/>
+                        <TextBlock Text="Satış Terminali" FontSize="13"
+                                   Foreground="{StaticResource TextSecondary}"/>
+                    </StackPanel>
+                    <Border Background="#1A2540" CornerRadius="6"
+                            Margin="16,0,0,0" Padding="10,6">
+                        <TextBlock Text="● Canlı" FontSize="13"
+                                   Foreground="#FF65F64A" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Border>
+                </StackPanel>
+
+                <Border Grid.Column="1" CornerRadius="12"
+                        BorderBrush="{StaticResource BorderColor}" BorderThickness="1"
+                        MaxWidth="550" VerticalAlignment="Center" Margin="30,0"
+                        HorizontalAlignment="Center">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#1F2436" Offset="0"/>
+                            <GradientStop Color="#1A1E2D" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <DockPanel>
+                        <Border DockPanel.Dock="Left" Width="50" CornerRadius="12,0,0,12">
+                            <TextBlock Text="⌕" FontSize="22" Foreground="{StaticResource TextSecondary}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <Border DockPanel.Dock="Right" CornerRadius="0,12,12,0"
+                                Padding="24,0" Cursor="Hand"
+                                MouseDown="btnOkut_Click">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#4A7CF6" Offset="0"/>
+                                    <GradientStop Color="#2D5BD4" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock Text="OKUT" FontSize="14" FontWeight="Bold"
+                                       Foreground="White" VerticalAlignment="Center"/>
+                        </Border>
+                        <Grid>
+                            <TextBlock x:Name="txtBarkodHint"
+                                       Text="Barkod okut veya numarayı yaz..."
+                                       Foreground="{StaticResource TextSecondary}"
+                                       FontSize="16" Padding="8,14"
+                                       VerticalAlignment="Center"
+                                       IsHitTestVisible="False"/>
+                            <TextBox x:Name="txtBarkod" Background="Transparent"
+                                     Foreground="{StaticResource TextPrimary}" BorderThickness="0"
+                                     Padding="8,14" FontSize="16" CaretBrush="White"
+                                     KeyDown="txtBarkod_KeyDown"
+                                     TextChanged="txtBarkod_TextChanged"/>
+                        </Grid>
+                    </DockPanel>
+                </Border>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal"
+                            VerticalAlignment="Center" HorizontalAlignment="Right"
+                            Margin="8,0,4,0">
+                    <Button Content="↩ İptal"
+                            Background="Transparent" Foreground="{StaticResource AccentRed}"
+                            FontSize="14" FontWeight="Bold" BorderThickness="0" Cursor="Hand"
+                            ToolTip="Son Satışı İptal"
+                            Click="btnSatisgeri_Click" Margin="0,0,16,0"/>
+                    <Button Content="⚙" Background="Transparent"
+                            Foreground="{StaticResource TextSecondary}"
+                            FontSize="28" BorderThickness="0" Cursor="Hand"
+                            ToolTip="Ayarlar"
+                            Click="btnAyarlar_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ══════════════════════════════════════════════════════════
+             ANA ALAN
+        ═══════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="360"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ── SOL: KATEGORİLER ──────────────────────────────── -->
+            <Border Grid.Column="0" Background="{StaticResource BgPanel}"
+                    BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,0">
+                <DockPanel Margin="10">
+
+                    <!-- Arama -->
+                    <Border DockPanel.Dock="Top" CornerRadius="10"
+                            BorderBrush="{StaticResource BorderColor}" BorderThickness="1"
+                            Background="{StaticResource BgCard}" Margin="0,10,0,16">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Left" Text="🔍" FontSize="13"
+                                       Margin="10,0,0,0" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtArama" Background="Transparent"
+                                     Foreground="{StaticResource TextPrimary}" BorderThickness="0"
+                                     Padding="6,9" FontSize="12" CaretBrush="White"
+                                     TextChanged="txtArama_TextChanged"
+                                     GotFocus="Placeholder_GotFocus"
+                                     LostFocus="Placeholder_LostFocus"
+                                     Tag="Ürün ara..."/>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Başlık -->
+                    <TextBlock DockPanel.Dock="Top" Text="KATEGORİLER"
+                               Foreground="{StaticResource TextSecondary}"
+                               FontSize="10" FontWeight="Bold"
+                               Margin="6,0,0,10"/>
+
+                    <!-- Butonlar -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="pnlKategoriler" />
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+
+            <!-- ── ORTA: ÜRÜNLER ─────────────────────────────────── -->
+            <Grid Grid.Column="1" Background="{StaticResource BgDark}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Ürünler başlık bar -->
+                <Border Grid.Row="0" Background="{StaticResource BgPanel}"
+                        BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,0,1"
+                        Padding="16,10">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="lblKategoriBaslik"
+                                       Text="Tüm Ürünler"
+                                       Foreground="{StaticResource TextPrimary}"
+                                       FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <Border x:Name="bdUrunSayisi" Background="{StaticResource BgCard}"
+                                    CornerRadius="12" Margin="10,0,0,0" Padding="10,3">
+                                <TextBlock x:Name="lblUrunSayisi" Text="0 ürün"
+                                           Foreground="{DynamicResource TextPrimary}" FontSize="12"/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Ürün kartları -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <WrapPanel x:Name="pnlUrunler" Margin="12"/>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- ── SAĞ: SEPET + ÖDEME ────────────────────────────── -->
+            <Border Grid.Column="2" Background="{StaticResource BgPanel}"
+                    BorderBrush="{StaticResource BorderColor}" BorderThickness="1,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Sepet Başlığı -->
+                    <Border Grid.Row="0" BorderBrush="{StaticResource BorderColor}"
+                            BorderThickness="0,0,0,1" Padding="16,14">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🛒" FontSize="16" Margin="0,0,8,0"
+                                           VerticalAlignment="Center" Foreground="#FFBEC10F"/>
+                                <TextBlock Text="Sepet" FontSize="16" FontWeight="Bold"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           VerticalAlignment="Center"/>
+                                <Border x:Name="bdSepetSayisi" Background="{StaticResource AccentBlue}"
+                                        CornerRadius="10" Margin="8,0,0,0" Padding="8,2"
+                                        Visibility="Collapsed">
+                                    <TextBlock x:Name="lblSepetSayisi" Text="0"
+                                               Foreground="White" FontSize="11" FontWeight="Bold"/>
+                                </Border>
+                            </StackPanel>
+                            <Button Content="Temizle" HorizontalAlignment="Right"
+                                    Background="Transparent" Foreground="{StaticResource AccentRed}"
+                                    FontSize="12" BorderThickness="0" Cursor="Hand"
+                                    VerticalAlignment="Center" Click="btnSepetTemizle_Click"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Sepet Boş Mesaj -->
+                    <Border Grid.Row="1" x:Name="bdSepetBos" Visibility="Visible">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="🛒" FontSize="40" HorizontalAlignment="Center"
+                                       Margin="0,0,0,12" Opacity="0.3"/>
+                            <TextBlock Text="Sepet boş" Foreground="{StaticResource TextSecondary}"
+                                       FontSize="14" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Ürüne tıklayarak ekleyin"
+                                       Foreground="{StaticResource TextSecondary}"
+                                       FontSize="12" HorizontalAlignment="Center" Margin="0,4,0,0"
+                                       Opacity="0.6"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Sepet Ürünler -->
+                    <ScrollViewer Grid.Row="1" x:Name="svSepet"
+                                  VerticalScrollBarVisibility="Auto"
+                                  Visibility="Collapsed" Margin="8,4">
+                        <StackPanel x:Name="pnlSepet"/>
+                    </ScrollViewer>
+
+                    <!-- Toplam -->
+                    <Border Grid.Row="2" Margin="12,0"
+                            BorderBrush="{StaticResource BorderColor}"
+                            BorderThickness="0,1,0,0" Padding="4,12">
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="TOPLAM TUTAR"
+                                           Foreground="#FF00FF6C"
+                                           FontSize="10" FontWeight="Bold" Margin="0,0,0,2"/>
+                                <TextBlock x:Name="lblToplam" Text="0,00 ₺"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           FontSize="28" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Yıkama Ekle -->
+                    <Border Grid.Row="3" Margin="12,8,12,0"
+                            Background="{StaticResource BgCard}" CornerRadius="10"
+                            BorderBrush="{StaticResource BorderColor}" BorderThickness="1"
+                            Padding="12,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                <TextBlock Text="🚿  YIKAMA GELİRİ (₺)"
+                                           Foreground="{StaticResource TextSecondary}"
+                                           FontSize="10" FontWeight="Bold" Margin="0,0,0,5"/>
+                                <Border Background="{StaticResource BgDark}" CornerRadius="6"
+                                        BorderBrush="{StaticResource BorderColor}" BorderThickness="1">
+                                    <TextBox x:Name="txtYikamaTutar"
+                                             KeyDown="txtYikamaTutar_KeyDown"
+                                             Background="Transparent"
+                                             Foreground="{StaticResource AccentOrange}"
+                                             BorderThickness="0"
+                                             Padding="8,7" FontSize="16" FontWeight="Bold"
+                                             CaretBrush="White"/>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+
+                                <Button Content="+ Ekle"
+                                        Height="38" Padding="16,0" Margin="0,0,8,0"
+                                        Background="{StaticResource AccentOrange}"
+                                        Foreground="White" FontSize="13" FontWeight="Bold"
+                                        Template="{StaticResource RoundBtnTemplate}"
+                                        Cursor="Hand" Click="btnYikamaEkle_Click"/>
+
+                                <Button x:Name="btnYikamaIptal" Content="Geri Al"
+                                        Height="26" Padding="10,0" VerticalAlignment="Center"
+                                        Background="{StaticResource AccentRed}"
+                                        Foreground="White" FontSize="11" FontWeight="Bold"
+                                        Template="{StaticResource RoundBtnTemplate}"
+                                        Cursor="Hand" Click="btnYikamaIptal_Click"/>
+
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- İndirim Girişi -->
+                    <Border Grid.Row="4" Margin="12,6,12,0">
+                        <StackPanel>
+                            <TextBlock Text="İNDİRİM (₺)"
+                                       Foreground="{StaticResource TextSecondary}"
+                                       FontSize="10" FontWeight="Bold" Margin="2,0,0,5"/>
+                            <Border Background="{StaticResource BgCard}" CornerRadius="8"
+                                    BorderBrush="{StaticResource BorderColor}" BorderThickness="1">
+                                <TextBox x:Name="txtIndirim"
+                                         Background="Transparent"
+                                         Foreground="{StaticResource AccentBlue}"
+                                         BorderThickness="0"
+                                         Padding="12,10" FontSize="18" FontWeight="Bold"
+                                         CaretBrush="White"
+                                         TextChanged="txtIndirim_TextChanged"
+                                         Tag="0"/>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Ödeme Butonları -->
+                    <StackPanel Grid.Row="5" Margin="12,8,12,14">
+                        <Button Content="💵  Ödeme   (F1)"
+                                Background="{StaticResource AccentGreen}"
+                                Style="{StaticResource OdemeBtn}"
+                                Click="btnNakit_Click" Height="75"/>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- ══════════════════════════════════════════════════════════
+             ALT STATUS BAR
+        ═══════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="2" Background="{StaticResource BgPanel}"
+        BorderBrush="{StaticResource BorderColor}" BorderThickness="0,1,0,0" Grid.ColumnSpan="4">
+            <Grid Margin="16,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse Width="7" Height="7" Fill="{StaticResource AccentGreen}" Margin="0,0,7,0"/>
+                    <TextBlock Text="Bağlantı Aktif" Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                    <TextBlock Text=" · " Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                    <TextBlock x:Name="lblSaat" Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock Text="F1: Ödeme ·  F5: Yenile"
+                       Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

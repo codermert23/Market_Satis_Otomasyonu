@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="per10SatisWPF.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="KullaniciAdi" Type="System.String" Scope="User">
+      <Value Profile="(Default)">peronyıkama</Value>
+    </Setting>
+    <Setting Name="Sifre" Type="System.String" Scope="User">
+      <Value Profile="(Default)">per1023</Value>
+    </Setting>
+    <Setting Name="RaporSifresi" Type="System.String" Scope="User">
+      <Value Profile="(Default)">123456</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

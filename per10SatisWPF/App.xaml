@@ -1,0 +1,105 @@
+<Application x:Class="per10SatisWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="LoginWindow.xaml">
+    <Application.Resources>
+
+        <!-- ══ RENK PALETİ ══════════════════════════════════════════ -->
+        <SolidColorBrush x:Key="BgDark"        Color="#12151E"/>
+        <SolidColorBrush x:Key="BgPanel"       Color="#181C28"/>
+        <SolidColorBrush x:Key="BgCard"        Color="#1F2436"/>
+        <SolidColorBrush x:Key="BgCardHover"   Color="#252C42"/>
+        <SolidColorBrush x:Key="AccentBlue"    Color="#4A7CF6"/>
+        <SolidColorBrush x:Key="AccentGreen"   Color="#27AE60"/>
+        <SolidColorBrush x:Key="AccentRed"     Color="#E74C3C"/>
+        <SolidColorBrush x:Key="AccentOrange"  Color="#F39C12"/>
+        <SolidColorBrush x:Key="TextPrimary"   Color="#EDF0F7"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#6B7A99"/>
+        <SolidColorBrush x:Key="BorderColor"   Color="#252C42"/>
+        <SolidColorBrush x:Key="NumpadBg"      Color="#1A1E2D"/>
+
+        <!-- ══ KONTROL ŞABLONLARı ═══════════════════════════════════ -->
+
+        <!-- Yuvarlak köşe butonu (genel) -->
+        <ControlTemplate x:Key="RoundBtnTemplate" TargetType="Button">
+            <Border x:Name="bd" Background="{TemplateBinding Background}"
+                    CornerRadius="10" SnapsToDevicePixels="True">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  Margin="{TemplateBinding Padding}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="bd" Property="Opacity" Value="0.88"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="bd" Property="Opacity" Value="0.72"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- Küçük yuvarlak (adet +/-) -->
+        <ControlTemplate x:Key="SmallRoundBtnTemplate" TargetType="Button">
+            <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="7">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="bd" Property="Opacity" Value="0.82"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="bd" Property="Opacity" Value="0.65"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- Kategori butonu -->
+        <ControlTemplate x:Key="KategoriBtn" TargetType="Button">
+            <Border x:Name="bd" Background="{TemplateBinding Background}"
+                    CornerRadius="10" SnapsToDevicePixels="True">
+                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"
+                                  Margin="14,0,0,0"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="bd" Property="Opacity" Value="0.85"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="bd" Property="Opacity" Value="0.7"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- ══ STİLLER ═══════════════════════════════════════════════ -->
+
+        <!-- Numpad butonu -->
+        <Style x:Key="NumpadStyle" TargetType="Button">
+            <Setter Property="Background"      Value="{StaticResource NumpadBg}"/>
+            <Setter Property="Foreground"      Value="{StaticResource TextPrimary}"/>
+            <Setter Property="FontSize"        Value="20"/>
+            <Setter Property="FontWeight"      Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin"          Value="3"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Template"        Value="{StaticResource RoundBtnTemplate}"/>
+        </Style>
+
+        <!-- Ödeme butonu -->
+        <Style x:Key="OdemeBtn" TargetType="Button">
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="FontSize"        Value="14"/>
+            <Setter Property="FontWeight"      Value="Bold"/>
+            <Setter Property="Height"          Value="50"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Margin"          Value="0,4,0,0"/>
+            <Setter Property="Template"        Value="{StaticResource RoundBtnTemplate}"/>
+        </Style>
+
+        <!-- ScrollBar gizle -->
+        <Style TargetType="ScrollBar">
+            <Setter Property="Width"   Value="4"/>
+            <Setter Property="Opacity" Value="0.4"/>
+        </Style>
+
+    </Application.Resources>
+</Application>
