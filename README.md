@@ -31,10 +31,6 @@ Modern, dark-theme WPF tabanlı Stok Yönetimi Ve Rapor uygulaması. Per10 Oto B
 ### Gereksinimler
 - Windows 10/11
 - .NET Framework 4.8
-- SQL Server Express
+- SQL Server Express 2022
 
-### Adımlar
 
-1. Repoyu klonla:
-   ```bash
-   git clone https://github.com/zeynpberdem/Per10new.git
